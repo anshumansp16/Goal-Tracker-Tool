@@ -75,7 +75,7 @@ const DailyGoalTracker: React.FC = () => {
         <div className="header-content">
           <div className="fade-in">
             <h1 className="header-title">
-              Daily Goal Tracker
+              Daily goal tracker
             </h1>
             <p className="header-subtitle">Track your progress across health, work, and learning goals</p>
           </div>
@@ -112,7 +112,7 @@ const DailyGoalTracker: React.FC = () => {
           
           <div className="stats-grid">
             <div className="stat-card">
-              <div className="stat-label">Month Progress</div>
+              <div className="stat-label">Month progress</div>
               <div className="stat-value">
                 {stats.completedDays}<span className="stat-value-small">/{stats.totalDays}</span>
               </div>

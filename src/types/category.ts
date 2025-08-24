@@ -6,6 +6,8 @@ export interface Category {
   name: string;
   icon: typeof Icon;
   color: string;
+  timeSlots: string[];
+  preferredDays: string[];
 }
 
 export type CategoryKey = 'physicalHealth' | 'onetouchWork' | 'aarambhWork' | 'techLearning' | 'youtubeVideos';

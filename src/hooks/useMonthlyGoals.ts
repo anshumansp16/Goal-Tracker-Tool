@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import type { MonthlyGoals } from '../types/insight';
 import type { CategoryKey } from '../types/category';
+import { saveMonthlyGoals, loadMonthlyGoals } from '../utils/storageUtils';
 
 interface UseMonthlyGoalsReturn {
   monthlyGoals: MonthlyGoals;
@@ -10,8 +11,8 @@ interface UseMonthlyGoalsReturn {
 
 export const useMonthlyGoals = (): UseMonthlyGoalsReturn => {
   const [monthlyGoals, setMonthlyGoals] = useState<MonthlyGoals>(() => {
-    const saved = localStorage.getItem('monthlyGoals');
-    return saved ? JSON.parse(saved) : {
+    const loaded = loadMonthlyGoals();
+    return Object.keys(loaded).length > 0 ? loaded : {
       physicalHealth: [],
       onetouchWork: [],
       aarambhWork: [],
@@ -21,7 +22,7 @@ export const useMonthlyGoals = (): UseMonthlyGoalsReturn => {
   });
 
   useEffect(() => {
-    localStorage.setItem('monthlyGoals', JSON.stringify(monthlyGoals));
+    saveMonthlyGoals(monthlyGoals);
   }, [monthlyGoals]);
 
   const addMonthlyGoal = (category: CategoryKey, goal: string) => {

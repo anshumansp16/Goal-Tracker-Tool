@@ -8,10 +8,47 @@ export const saveData = (data: MonthData): void => {
     localStorage.setItem('goalTrackerBackup', JSON.stringify({
       data: data,
       lastSaved: new Date().toISOString(),
-      version: '1.0'
+      version: '2.0'
     }));
   } catch (error) {
     console.error('Error saving data:', error);
+  }
+};
+
+// Enhanced storage utilities
+export const saveMonthlyGoals = (goals: any): void => {
+  try {
+    localStorage.setItem('goalTrackerMonthlyGoals', JSON.stringify(goals));
+  } catch (error) {
+    console.error('Error saving monthly goals:', error);
+  }
+};
+
+export const loadMonthlyGoals = (): any => {
+  try {
+    const saved = localStorage.getItem('goalTrackerMonthlyGoals');
+    return saved ? JSON.parse(saved) : {};
+  } catch (error) {
+    console.error('Error loading monthly goals:', error);
+    return {};
+  }
+};
+
+export const saveWeeklyPlans = (plans: any): void => {
+  try {
+    localStorage.setItem('goalTrackerWeeklyPlans', JSON.stringify(plans));
+  } catch (error) {
+    console.error('Error saving weekly plans:', error);
+  }
+};
+
+export const loadWeeklyPlans = (): any => {
+  try {
+    const saved = localStorage.getItem('goalTrackerWeeklyPlans');
+    return saved ? JSON.parse(saved) : {};
+  } catch (error) {
+    console.error('Error loading weekly plans:', error);
+    return {};
   }
 };
 
