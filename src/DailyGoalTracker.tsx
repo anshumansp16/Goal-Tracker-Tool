@@ -5,10 +5,10 @@ import { useMonthData } from './hooks/useMonthData';
 import { useMonthlyGoals } from './hooks/useMonthlyGoals';
 import { useWeeklyPlans } from './hooks/useWeeklyPlans';
 import { categories } from './constants/categories';
-import { formatDate } from './utils/dateUtils';
+import { formatDate, getCurrentLocalDateString } from './utils/dateUtils';
 
 const DailyGoalTracker: React.FC = () => {
-  const [currentDate, setCurrentDate] = useState(new Date().toISOString().split('T')[0]);
+  const [currentDate, setCurrentDate] = useState(getCurrentLocalDateString());
   const [activeView, setActiveView] = useState('today');
   
   const {
@@ -34,9 +34,27 @@ const DailyGoalTracker: React.FC = () => {
     carryOverIncompleteTasks(currentDate);
   }, [currentDate]);
 
+  // Auto-update date at midnight and check every minute
+  useEffect(() => {
+    const checkAndUpdateDate = () => {
+      const today = getCurrentLocalDateString();
+      if (today !== currentDate) {
+        setCurrentDate(today);
+      }
+    };
+
+    // Check immediately
+    checkAndUpdateDate();
+    
+    // Set up interval to check every minute
+    const interval = setInterval(checkAndUpdateDate, 60000);
+    
+    return () => clearInterval(interval);
+  }, [currentDate]);
+
   const getProgressStats = () => {
     const dates = Object.keys(monthData).sort();
-    const today = new Date().toISOString().split('T')[0];
+    const today = getCurrentLocalDateString();
     const pastDates = dates.filter(date => date <= today);
     
     let totalDays = pastDates.length;

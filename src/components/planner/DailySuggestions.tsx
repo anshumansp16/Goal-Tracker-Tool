@@ -38,13 +38,14 @@ const DailySuggestions: React.FC<DailySuggestionsProps> = ({ currentDate }) => {
             return (
               <div key={categoryKey} className="border border-gray-200 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-3">
-                  <category.icon size={16} className={category.color} />
+                  {/* @ts-ignore */}
+                  <category.icon size={16} style={{ color: category.color }} />
                   <h4 className="font-semibold text-gray-900 capitalize">
                     {categoryKey === 'breaks' ? 'Breaks & free time' : category.name}
                   </h4>
                 </div>
                 <ul className="space-y-2 text-sm text-gray-700">
-                  {suggestions.slice(0, 4).map((suggestion, index) => (
+                  {suggestions.slice(0, 4).map((suggestion: string, index: number) => (
                     <li key={index} className="flex items-start gap-2">
                       <span className="text-gray-400 mt-0.5">•</span>
                       <span>{suggestion}</span>

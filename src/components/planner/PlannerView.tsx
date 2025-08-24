@@ -61,7 +61,7 @@ const PlannerView: React.FC<PlannerViewProps> = ({
     <div className="space-y-6">
       {/* Planner Navigation */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">Planner</h2>
+        <h2 className="text-2xl font-bold text-gray-900">Planner</h2>
         <div className="flex bg-gray-100 rounded-lg p-1">
           {[
             { key: 'monthly', label: 'Monthly', icon: Target },
@@ -71,7 +71,7 @@ const PlannerView: React.FC<PlannerViewProps> = ({
             <button
               key={key}
               onClick={() => setActiveTab(key as any)}
-              className={`flex items-center gap-2 px-3 py-1.5 rounded-md text-sm font-medium transition-all ${
+              className={`flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all ${
                 activeTab === key 
                   ? 'bg-white text-gray-900 shadow-sm' 
                   : 'text-gray-600 hover:text-gray-900'
@@ -93,8 +93,8 @@ const PlannerView: React.FC<PlannerViewProps> = ({
               onAddMonthlyGoal={onAddMonthlyGoal}
               onToggleMonthlyGoal={onToggleMonthlyGoal}
             />
-            <div className="bg-white rounded-lg border border-gray-200 p-4">
-              <h3 className="font-medium text-gray-900 mb-3">Monthly planning tips</h3>
+            <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+              <h3 className="font-bold text-lg text-gray-900 mb-4">Monthly Planning Tips</h3>
               <ul className="text-sm text-gray-600 space-y-1">
                 <li>• Set 2-3 key goals per category for the month</li>
                 <li>• Break down large goals into weekly milestones</li>
@@ -110,8 +110,8 @@ const PlannerView: React.FC<PlannerViewProps> = ({
               currentDate={currentDate}
               onNavigateToToday={onNavigateToToday}
             />
-            <div className="bg-white rounded-lg border border-gray-200 p-4">
-              <h3 className="font-medium text-gray-900 mb-3">Weekly schedule optimization</h3>
+            <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+              <h3 className="font-bold text-lg text-gray-900 mb-4">Weekly Schedule Optimization</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                 <div>
                   <h4 className="font-medium text-gray-800 mb-2">Weekdays (Mon-Fri)</h4>
@@ -137,8 +137,8 @@ const PlannerView: React.FC<PlannerViewProps> = ({
         {activeTab === 'daily' && (
           <div className="space-y-6">
             <DailySuggestions currentDate={currentDate} />
-            <div className="bg-white rounded-lg border border-gray-200 p-4">
-              <h3 className="font-medium text-gray-900 mb-3">Today's smart suggestions</h3>
+            <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+              <h3 className="font-bold text-lg text-gray-900 mb-4">Today's Smart Suggestions</h3>
               <div className="space-y-4">
                 {getTimeBasedSuggestions(currentDate).map(({ category, isPreferredDay, suggestedTasks, timeSlots }) => (
                   <div key={category.key} className={`p-3 rounded-lg border ${isPreferredDay ? 'border-gray-300 bg-gray-50' : 'border-gray-200'}`}>
@@ -146,7 +146,7 @@ const PlannerView: React.FC<PlannerViewProps> = ({
                       {/* @ts-ignore */}
                       <category.icon size={16} />
                       <span className="font-medium text-sm">{category.name}</span>
-                      {isPreferredDay && <span className="text-xs bg-gray-200 px-2 py-0.5 rounded">Recommended today</span>}
+                      {isPreferredDay && <span className="text-xs bg-gray-200 px-2 py-1 rounded">Recommended today</span>}
                     </div>
                     <div className="text-xs text-gray-600 mb-1">
                       Suggested time: {timeSlots.join(', ')}

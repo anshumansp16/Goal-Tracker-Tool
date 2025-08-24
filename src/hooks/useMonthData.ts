@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import type { MonthData } from '../types/insight';
-import type { CategoryKey, CategoryData } from '../types/category';
+import type { CategoryKey } from '../types/category';
 import type { Task } from '../types/task';
 import { saveData, loadData, initializeDayData } from '../utils/storageUtils';
 
@@ -105,7 +105,7 @@ export const useMonthData = (): UseMonthDataReturn => {
           if (!completedTasks.includes(index)) {
             // Task was not completed, carry it over
             const taskObj = typeof task === 'string' 
-              ? { text: `${task} (carried over)`, type: 'Routine' }
+              ? { text: `${task} (carried over)`, type: 'Routine' as const }
               : { ...task, text: `${task.text} (carried over)` };
             todayData.tasks.push(taskObj);
             hasCarryover = true;

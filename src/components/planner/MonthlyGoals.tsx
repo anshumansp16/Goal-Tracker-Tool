@@ -22,7 +22,8 @@ const MonthlyGoals: React.FC<MonthlyGoalsProps> = ({
         {categories.map(category => (
           <div key={category.key} className="bg-white rounded-lg border border-gray-200 p-6">
             <div className="flex items-center gap-3 mb-4">
-              <category.icon size={20} className={category.color} />
+              {/* @ts-ignore */}
+              <category.icon size={20} style={{ color: category.color }} />
               <h3 className="font-semibold text-gray-900">{category.name}</h3>
             </div>
             
@@ -49,7 +50,7 @@ const MonthlyGoals: React.FC<MonthlyGoalsProps> = ({
             <input
               type="text"
               placeholder="Add monthly goal..."
-              className="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
+              className="form-input small"
               onKeyPress={(e) => {
                 if (e.key === 'Enter') {
                   onAddMonthlyGoal(category.key, (e.target as HTMLInputElement).value);

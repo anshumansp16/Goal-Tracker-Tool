@@ -92,7 +92,7 @@ export const loadData = (): MonthData => {
   }
 };
 
-export const initializeDayData = (currentDate: string): Record<CategoryKey, any> => {
+export const initializeDayData = (_currentDate: string): Record<CategoryKey, any> => {
   return {
     physicalHealth: { tasks: [...defaultTasks.physicalHealth], timeSpent: 0, completed: false },
     onetouchWork: { tasks: [...defaultTasks.onetouchWork], timeSpent: 0, completed: false },

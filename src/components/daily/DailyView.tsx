@@ -27,7 +27,7 @@ const DailyView: React.FC<DailyViewProps> = ({
 }) => {
   const [aiInsight, setAiInsight] = useState<AIInsight | null>(null);
   const [loading, setLoading] = useState(false);
-  const [newTaskInputs, setNewTaskInputs] = useState<Record<string, string>>({});
+  const [newTaskInputs, setNewTaskInputs] = useState<Record<string, string | undefined>>({});
 
   const handleGenerateInsight = async () => {
     setLoading(true);
@@ -41,10 +41,10 @@ const DailyView: React.FC<DailyViewProps> = ({
   };
 
   const toggleNewTaskInput = (category: CategoryKey) => {
-    setNewTaskInputs({
-      ...newTaskInputs,
-      [category]: newTaskInputs[category] === undefined ? '' : undefined
-    });
+    setNewTaskInputs(prev => ({
+      ...prev,
+      [category]: prev[category] === undefined ? '' : undefined
+    }));
   };
 
   return (

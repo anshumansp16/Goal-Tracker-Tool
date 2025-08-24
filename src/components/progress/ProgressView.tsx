@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { TrendingUp, Calendar, Clock, Target } from 'lucide-react';
 import CategoryProgress from './CategoryProgress';
-import MonthlyCalendar from './MonthlyCalendar';
 import type { MonthData } from '../../types/insight';
 import type { CategoryStats } from '../../types/category';
 import { categories } from '../../constants/categories';
+import { getCurrentLocalDateString } from '../../utils/dateUtils';
 
 interface ProgressViewProps {
   monthData: MonthData;
@@ -17,7 +17,7 @@ const ProgressView: React.FC<ProgressViewProps> = ({
 }) => {
   const analytics = useMemo(() => {
     const dates = Object.keys(monthData).sort();
-    const today = new Date().toISOString().split('T')[0];
+    const today = getCurrentLocalDateString();
     const pastDates = dates.filter(date => date <= today);
     
     // Calculate streaks
@@ -95,7 +95,7 @@ const ProgressView: React.FC<ProgressViewProps> = ({
   return (
     <div className="space-y-6">
       {/* Analytics Overview */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         <div className="stat-card">
           <div className="stat-label">
             <Target size={16} />
@@ -134,8 +134,8 @@ const ProgressView: React.FC<ProgressViewProps> = ({
       </div>
 
       {/* Progress Summary */}
-      <div className="bg-white rounded-lg border border-gray-200 p-4">
-        <h3 className="font-medium text-gray-900 mb-3">Progress summary</h3>
+      <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <h3 className="font-bold text-lg text-gray-900 mb-4">Progress Summary</h3>
         <div className="space-y-3">
           <div className="flex justify-between items-center">
             <span className="text-sm text-gray-600">Overall completion rate</span>
@@ -155,27 +155,39 @@ const ProgressView: React.FC<ProgressViewProps> = ({
 
       {/* Category Progress */}
       <CategoryProgress categoryStats={categoryStats} />
-      
-      {/* Monthly Calendar */}
-      <MonthlyCalendar monthData={monthData} />
 
       {/* Insights */}
-      <div className="bg-white rounded-lg border border-gray-200 p-4">
-        <h3 className="font-medium text-gray-900 mb-3">Key insights</h3>
-        <div className="space-y-2 text-sm text-gray-600">
+      <div className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm">
+        <h3 className="font-bold text-lg text-gray-900 mb-4">Key Insights</h3>
+        <div className="space-y-3 text-base text-gray-700">
           {analytics.currentStreak > 0 && (
-            <p>🔥 You're on a {analytics.currentStreak}-day streak! Keep the momentum going.</p>
+            <div className="flex items-start gap-3 p-3 bg-orange-50 rounded-lg border border-orange-200">
+              <span className="text-lg">🔥</span>
+              <p className="font-medium">You're on a {analytics.currentStreak}-day streak! Keep the momentum going.</p>
+            </div>
           )}
           {analytics.longestStreak > analytics.currentStreak && (
-            <p>🎯 Your longest streak was {analytics.longestStreak} days. You can beat that record!</p>
+            <div className="flex items-start gap-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
+              <span className="text-lg">🎯</span>
+              <p className="font-medium">Your longest streak was {analytics.longestStreak} days. You can beat that record!</p>
+            </div>
           )}
           {analytics.avgCompletionRate > 70 && (
-            <p>⭐ Excellent consistency! You're completing {analytics.avgCompletionRate}% of your goals.</p>
+            <div className="flex items-start gap-3 p-3 bg-green-50 rounded-lg border border-green-200">
+              <span className="text-lg">⭐</span>
+              <p className="font-medium">Excellent consistency! You're completing {analytics.avgCompletionRate}% of your goals.</p>
+            </div>
           )}
           {analytics.avgCompletionRate < 30 && (
-            <p>💪 Focus on small wins. Even completing 1 task per day builds powerful habits.</p>
+            <div className="flex items-start gap-3 p-3 bg-purple-50 rounded-lg border border-purple-200">
+              <span className="text-lg">💪</span>
+              <p className="font-medium">Focus on small wins. Even completing 1 task per day builds powerful habits.</p>
+            </div>
           )}
-          <p>📊 {analytics.mostProductiveDay}s tend to be your most productive days.</p>
+          <div className="flex items-start gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <span className="text-lg">📊</span>
+            <p className="font-medium">{analytics.mostProductiveDay}s tend to be your most productive days.</p>
+          </div>
         </div>
       </div>
     </div>

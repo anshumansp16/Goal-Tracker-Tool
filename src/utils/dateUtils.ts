@@ -1,3 +1,11 @@
+export const getCurrentLocalDateString = (): string => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, '0');
+  const day = String(now.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
 export const formatDate = (dateString: string): string => {
   const date = new Date(dateString);
   return date.toLocaleDateString('en-US', { 
@@ -24,7 +32,11 @@ export const getWeekDates = (date: string): string[] => {
   for (let i = 0; i < 7; i++) {
     const weekDay = new Date(sunday);
     weekDay.setDate(sunday.getDate() + i);
-    weekDates.push(weekDay.toISOString().split('T')[0]);
+    // Use local date formatting instead of ISO string
+    const year = weekDay.getFullYear();
+    const month = String(weekDay.getMonth() + 1).padStart(2, '0');
+    const day = String(weekDay.getDate()).padStart(2, '0');
+    weekDates.push(`${year}-${month}-${day}`);
   }
   return weekDates;
 };

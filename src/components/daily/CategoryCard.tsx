@@ -78,7 +78,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({
         {categoryData.tasks.map((task, index) => {
           const taskText = getTaskText(task);
           const taskType = getTaskType(task);
-          const typeStyle = taskTypes.find(t => t.label === taskType) || taskTypes[0];
+          // const typeStyle = taskTypes.find(t => t.label === taskType) || taskTypes[0];
           
           return (
             <div key={index} className="task-item">
